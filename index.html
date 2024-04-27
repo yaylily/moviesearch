@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>topmovie</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<style>
+    .title {
+        background-color: darkgray;
+        height: 200px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    .searchBox {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mvcards {
+        background-color: green;
+        width: 1200px;
+        margin: 20px auto 20px auto;
+    }
+</style>
+<script>
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNjRiY2YyNWI3OTM3ZWVlMGVjYWRjOGM4ZjE1YjJmNSIsInN1YiI6IjY2MmIxNTQ4OWFjNTM1MDExYjhmMDU0YyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.M1r320lu2Si701H2m4OWV8IeELv2hByZoQBWZnou36Q'
+        }
+    };
+
+    const url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1'
+
+    ///카드 불러오기
+    fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+            let rows = data['results'];
+
+            rows.forEach((a) => {
+                let mvTitle = a['title'];
+                let mvOverview = a['overview'];
+                let mvPoster_path = a['poster_path'];
+                let mvVote_average = a['vote_average'];
+                let mvId = a['id'];
+
+                let temp_html = `
+                            <div onclick="hey(${mvId})" class="mvcard" id=${mvId}>
+                             <div class="card h-100">
+                            <img src="https://image.tmdb.org/t/p/w500${mvPoster_path}" class="card-img-top" alt="...">
+                             <div class="card-body">
+                                <h5 id="card-title" class="card-title">${mvTitle}</h5>
+                                <p class="card-text">${mvOverview}</p>
+                                <p class="card-text">${mvVote_average}</p>
+                            </div>
+                             </div>
+                        </div>
+
+                   `;
+                cardList.insertAdjacentHTML('beforebegin', temp_html);
+            });
+
+        })
+        .catch(err => console.error(err));
+
+
+    ///id값 가져오기
+    function hey(str) {
+
+        alert(str)
+    }
+
+    ///서치 기능
+    document.addEventListener('DOMContentLoaded', () => {
+            const payrollSearch = document.querySelector('#search');     
+
+            function mvSearch() {
+                const payrollTitle = document.querySelectorAll('.card-title');
+                const filterValue = payrollSearch.value.toLowerCase();
+
+                for (let i = 0; i < payrollTitle.length; i++) {
+                   
+                    let rows = payrollTitle[i].textContent.toLowerCase();
+
+                    const id = payrollTitle[i].parentElement.parentElement.parentElement.id;
+
+                    if (rows.includes(filterValue)) {
+                        document.getElementById(id).style.display = 'block';
+                    } else {
+                        document.getElementById(id).style.display = 'none';
+                    }
+                }
+            }
+            document.querySelector('#SearchBtn').addEventListener('click',mvSearch);
+        })
+    
+
+
+
+
+</script>
+
+<body>
+    <div class=title>
+        <h1>내배캠 최고 평점 영화 콜렉션</h1>
+    </div>
+    <div class="searchBox">
+        <h3>영화 검색</h3>
+        <input id ="search" type="text" />
+        <button id="SearchBtn">검색</button>
+    </div>
+    <div class="mvcards">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div ID="cardList">
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
