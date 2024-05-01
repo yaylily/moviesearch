@@ -5,75 +5,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="ui.css" />
+
     <title>topmovie</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR&display=swap');
     </style>
 </head>
-<style>
-    * {
-        font-family: "Noto Serif KR", serif;
 
-    }
+<body>
+    <header>
+    <div class="top-bar"> </div>
+    <form class="searchBox" onsubmit="mvSearch(event)">
+        <input id="search" type="text" style="
+         border-color: royalblue;
+         border-radius: 5px;">
+        <button id="SearchBtn" type="button" class="btn btn-secondary" style="background-color: royalblue;"><strong>SEARCH</strong></button>
+    </form>
+    <div class=title>
+        <p>TOP RATED MOVIE </p>
+        <p>COLLECTION</p>
+    </div>
+    </header>
 
-    .top-bar {
-        background-color: gainsboro;
-        height: 40px;
-    }
+    <main>
+    <div class="listLine">
+        <h2>Movie List</h2>
+    </div>
 
-    .searchBox {
+    <div class="mvcards">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div ID="cardList">
 
-        color: royalblue;
-        height: 80px;
-        padding-right: 30px;
+            </div>
 
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: right;
-        gap: 10px
-    }
+        </div>
+    </div>
+    </div>
+    </main>
 
-    .title {
-        height: 330px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        color: royalblue;
-        font-size: 80px;
-        font-weight: 900;
-        text-align: left;
-
-        padding: 10px 0px 30px 40px;
-    }
-
-    .listLine {
-        width: 280px;
-        color: royalblue;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 50px auto 30px auto;
-
-        border: 3px solid royalblue;
-        border-radius: 30px;
-    }
-
-    .mvcards {
-        width: 1200px;
-        margin: 20px auto 20px auto;
-
-        border-color: royalblue;
-    }
-</style>
-<script>
-    const options = {
+    <script>
+     const options = {
         method: 'GET',
         headers: {
             accept: 'application/json',
@@ -145,39 +122,13 @@
         }
         document.querySelector('#SearchBtn').addEventListener('click', mvSearch);
     })
-
-
-
-
-
-</script>
-
-<body>
-    <div class="top-bar"> </div>
-    <div class="searchBox">
-        <input id="search" type="text" style="
-         border-color: royalblue;
-         border-radius: 5px;">
-        <button id="SearchBtn" type="button" class="btn btn-secondary" style="background-color: royalblue;"><strong>SEARCH</strong></button>
-    </div>
-    <div class=title>
-        <p>TOP RATED MOVIE </p>
-        <p>COLLECTION</p>
-    </div>
-
-    <div class="listLine">
-        <h2>Movie List</h2>
-    </div>
-
-    <div class="mvcards">
-        <div class="row row-cols-1 row-cols-md-4 g-4">
-            <div ID="cardList">
-
-            </div>
-
-        </div>
-    </div>
-    </div>
+    
+    
+    
+    
+    
+    </script>
 </body>
+
 
 </html>
